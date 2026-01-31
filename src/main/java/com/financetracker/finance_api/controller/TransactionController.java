@@ -23,4 +23,15 @@ public class TransactionController {
     public Transaction createTransaction(@RequestBody Transaction transaction) {
         return transactionRepository.save(transaction);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteTransaction(@PathVariable long id) {
+        transactionRepository.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Transaction updataTransaction(@PathVariable long id, @RequestBody Transaction transaction) {
+        transaction.setId(id);
+        return transactionRepository.save(transaction);
+    }
 }

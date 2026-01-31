@@ -16,4 +16,7 @@ public class Transaction {
     private Double amount;
     private LocalDate date;
     private String type;
+
+    @ManyToOne
+    private Category category;
 }
