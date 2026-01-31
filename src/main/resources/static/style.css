@@ -186,3 +186,29 @@
         .btn-submit:active {
             transform: translateY(0);
         }
+
+        .transaction-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-delete {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-delete:hover {
+            background: #ff3838;
+            transform: scale(1.1);
+        }
+
+        .btn-delete:active {
+            transform: scale(0.95);
+        }

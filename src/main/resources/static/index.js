@@ -40,11 +40,14 @@ async function loadTransactions() {
                     <strong>${t.description}</strong>
                     <small>${t.category ? t.category.name : 'No category'}</small>
                 </div>
-                <div>
-                    <span class="transaction-amount ${t.type}">
-                        ${t.type === 'income' ? '+' : '-'}$${t.amount.toFixed(2)}
-                    </span>
-                    <small>${t.date}</small>
+                <div class="transaction-right">
+                    <div>
+                        <span class="transaction-amount ${t.type}">
+                            ${t.type === 'income' ? '+' : '-'}$${t.amount.toFixed(2)}
+                        </span>
+                        <small>${t.date}</small>
+                    </div>
+                    <button class="btn-delete" onclick="deleteTransaction(${t.id})">🗑️</button>
                 </div>
             </div>
         `).join('');
@@ -53,6 +56,29 @@ async function loadTransactions() {
         console.error('Error loading transactions:', error);
         document.getElementById('transactions-list').innerHTML =
             '<p>Error loading transactions.</p>';
+    }
+}
+
+async function deleteTransaction(id) {
+    if (!confirm('Are you sure you want to delete this transaction?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/transactions/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            alert('Transaction deleted! ✅');
+            loadAnalytics();
+            loadTransactions();
+        } else {
+            alert('Error deleting transaction ❌');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error deleting transaction ❌');
     }
 }
 
@@ -102,11 +128,9 @@ document.getElementById('transaction-form').addEventListener('submit', async (e)
         if (response.ok) {
             alert('Transaction added successfully! ✅');
 
-            // Reset form
             document.getElementById('transaction-form').reset();
             document.getElementById('date').valueAsDate = new Date();
 
-            // Reload data
             loadAnalytics();
             loadTransactions();
         } else {
