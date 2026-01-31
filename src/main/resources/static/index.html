@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>💰 My Finance Tracker</h1>
+    <div class="dashboard">
+        <div class="card">
+            <h3>💰 Balance</h3>
+            <p class="amount" id="balance">$0.00</p>
+        </div>
+
+        <div class="card income">
+            <h3>📈 Income</h3>
+            <p class="amount" id="income">$0.00</p>
+        </div>
+
+        <div class="card expense">
+            <h3>📉 Expenses</h3>
+            <p class="amount" id="expenses">$0.00</p>
+        </div>
+    </div>
+    <h2>Recent Transactions</h2>
+    <div id="transactions-list">
+        <p>Loading transactions...</p>
+    </div>
+
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
