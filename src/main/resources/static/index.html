@@ -25,6 +25,48 @@
             <p class="amount" id="expenses">$0.00</p>
         </div>
     </div>
+
+    <div class="form-container">
+        <h2>➕ Add New Transaction</h2>
+        <form id="transaction-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="description" required placeholder="e.g., Grocery Shopping">
+                </div>
+
+                <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" id="amount" step="0.01" required placeholder="0.00">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="type" required>
+                        <option value="">Select type</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select id="category" required>
+                    <option value="">Select category</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Add Transaction</button>
+        </form>
+    </div>
     <h2>Recent Transactions</h2>
     <div id="transactions-list">
         <p>Loading transactions...</p>

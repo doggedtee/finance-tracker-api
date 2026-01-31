@@ -56,5 +56,68 @@ async function loadTransactions() {
     }
 }
 
+async function loadCategories() {
+    try {
+        const response = await fetch(`${API_URL}/categories`);
+        const categories = await response.json();
+
+        const select = document.getElementById('category');
+        select.innerHTML = '<option value="">Select category</option>';
+
+        categories.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.id;
+            option.textContent = cat.name;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading categories:', error);
+    }
+}
+
+document.getElementById('date').valueAsDate = new Date();
+
+document.getElementById('transaction-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const transaction = {
+        description: document.getElementById('description').value,
+        amount: parseFloat(document.getElementById('amount').value),
+        date: document.getElementById('date').value,
+        type: document.getElementById('type').value,
+        category: {
+            id: parseInt(document.getElementById('category').value)
+        }
+    };
+
+    try {
+        const response = await fetch(`${API_URL}/transactions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(transaction)
+        });
+
+        if (response.ok) {
+            alert('Transaction added successfully! ✅');
+
+            // Reset form
+            document.getElementById('transaction-form').reset();
+            document.getElementById('date').valueAsDate = new Date();
+
+            // Reload data
+            loadAnalytics();
+            loadTransactions();
+        } else {
+            alert('Error adding transaction ❌');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error adding transaction ❌');
+    }
+});
+
 loadAnalytics();
 loadTransactions();
+loadCategories();
